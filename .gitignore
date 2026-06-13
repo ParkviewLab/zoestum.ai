@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Secrets — never commit
+*recovery_codes*
+*.pem
+*.key
+.env
+.env.*
+*credentials*
+*secret*
+*.token

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zoestum</title>
+<meta name="description" content="zoestum — coming soon.">
+<style>
+  /* Self-hosted Michroma (OFL) — no external font call. */
+  @font-face{font-family:'Michroma';font-style:normal;font-weight:400;font-display:swap;
+    src:url('assets/fonts/michroma-latin.woff2') format('woff2');}
+  :root{
+    --bg:#141414; --fg:#f3eee2; --muted:#8a8576; --accent:#00C2C7;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans);
+    display:flex; align-items:center; justify-content:center; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  main{ text-align:center; padding:32px; }
+  .wordmark{
+    font-family:'Michroma',var(--sans); text-transform:uppercase;
+    font-size:clamp(34px,9vw,76px); letter-spacing:.14em; margin:0;
+    /* nudge for the trailing letter-spacing so the word stays optically centered */
+    text-indent:.14em;
+  }
+  .rule{ height:4px; width:96px; background:var(--accent); margin:26px auto 24px; }
+  .tagline{
+    font-family:var(--mono); font-size:13px; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--muted); margin:0; text-indent:.32em;
+  }
+</style>
+</head>
+<body>
+  <main>
+    <h1 class="wordmark">zoestum</h1>
+    <div class="rule"></div>
+    <p class="tagline">Coming soon</p>
+  </main>
+</body>
+</html>
