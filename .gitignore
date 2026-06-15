@@ -10,3 +10,6 @@
 *credentials*
 *secret*
 *.token
+
+# Build output — assembled by the deploy / preview, never committed (see website.md)
+/_site/

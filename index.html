@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+SPDX-FileCopyrightText: 2026 Gary Frattarola <garyf@parkviewlab.ai>
+SPDX-License-Identifier: LicenseRef-AllRightsReserved
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -18,10 +22,12 @@
   html,body{height:100%;}
   body{
     margin:0; background:var(--bg); color:var(--fg); font-family:var(--sans);
-    display:flex; align-items:center; justify-content:center; min-height:100vh;
+    display:flex; flex-direction:column; min-height:100vh;
     -webkit-font-smoothing:antialiased;
   }
-  main{ text-align:center; padding:32px; }
+  main{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+        text-align:center; padding:32px; }
+  .logo{ width:clamp(180px,44vw,320px); height:auto; display:block; margin:0 auto 30px; }
   .wordmark{
     font-family:'Michroma',var(--sans); text-transform:uppercase;
     font-size:clamp(34px,9vw,76px); letter-spacing:.14em; margin:0;
@@ -33,13 +39,23 @@
     font-family:var(--mono); font-size:13px; letter-spacing:.32em; text-transform:uppercase;
     color:var(--muted); margin:0; text-indent:.32em;
   }
+  footer.site{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; color:var(--muted);
+    text-align:center; padding:20px 24px 26px; line-height:1.9;
+  }
+  footer.site a{ color:var(--accent); }
 </style>
 </head>
 <body>
   <main>
+    <img class="logo" src="assets/img/zoestum_logo.svg" alt="Zoestum">
     <h1 class="wordmark">zoestum</h1>
     <div class="rule"></div>
     <p class="tagline">Coming soon</p>
   </main>
+  <footer class="site">
+    <div>Copyright © 2026 Gary Frattarola · <a href="mailto:garyf@parkviewlab.ai">garyf@parkviewlab.ai</a></div>
+    <div>This page updated on <span class="updated">STAMP_DATE</span></div>
+  </footer>
 </body>
 </html>

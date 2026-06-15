@@ -1,0 +1,63 @@
+name: Deploy site
+
+# zoestum.ai deploys GitHub Pages via Actions (not legacy branch serving) so the
+# deploy can stamp the page's "last updated" date without committing it. Set the
+# Pages source once: gh api -X PUT repos/ParkviewLab/zoestum.ai/pages
+# -f build_type=workflow. See the handbook's website.md.
+#
+# Triggers: publish (push to live) + manual. No nightly schedule — there's no
+# generated content to refresh; the date changes only when the page does.
+
+on:
+  push:
+    branches: [live]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: live              # always deploy production
+          fetch-depth: 0         # full history — needed for the per-page git date
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Stamp the page date
+        run: python3 scripts/stamp.py    # fill "This page updated on <date>" from git
+      - name: Assemble the published site
+        run: |
+          # Publish the site files only — not scripts, docs, licenses, CI.
+          # Keep CNAME so the custom domain holds.
+          mkdir _site
+          rsync -a \
+            --exclude '.git' --exclude '.github' --exclude '_site' \
+            --exclude 'scripts' --exclude 'docs' \
+            --exclude 'LICENSES' --exclude 'LICENSING.md' --exclude 'REUSE.toml' \
+            --exclude 'README.md' --exclude 'AGENTS.md' --exclude 'CLAUDE.md' \
+            --exclude '.gitignore' \
+            ./ _site/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
